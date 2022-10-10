@@ -25,7 +25,7 @@ class Circle(Shape):
         self._radius = value
 
     @property
-    def volume(self):
+    def area(self):
         return pi * self.radius**2
 
     @property
@@ -77,10 +77,10 @@ class Circle(Shape):
 
             print(f"this is the ax: {type(ax)}")
 
-            return ax
+        return plt.show()
 
     def __repr__(self) -> str:
-        return f"Circle(Volume={self.volume}, circumference={self.circumference})"
+        return f"Circle(Volume={self.area}, circumference={self.circumference})"
 
     def __str__(self) -> str:
         if self.translate_circle:

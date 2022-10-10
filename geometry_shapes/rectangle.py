@@ -39,33 +39,44 @@ class Rectangle(Shape):
         self._side2 = value
 
     # perimeter is P=2l+2w and area is A=lw where l is the length and w is the width.
+    def validate_rectangle(self):
+        if self.side1 == self.side2:
+            raise ValueError("Rectangles sides must differ")
+
     @property
     def area(self):
-        return self.side1 * self.side2
+        if self.validate_rectangle:
+            return self.side1 * self.side2
 
     @property
     def perimeter(self):
-        perimetr = (self.side1 * 2) + (self.side2 * 2)
-        return perimetr
+        if self.validate_rectangle:
+            perimetr = (self.side1 * 2) + (self.side2 * 2)
+            return perimetr
 
     def is_square(self) -> bool:
-        diagonal_rect = math.sqrt(self.side1**2 + self.side2**2)
-        diagonal_square_1 = math.sqrt((self.side1**2) * 2)
-        diagonal_square_2 = math.sqrt((self.side2**2) * 2)
+        if self.validate_rectangle:
+            diagonal_rect = math.sqrt(self.side1**2 + self.side2**2)
+            diagonal_square_1 = math.sqrt((self.side1**2) * 2)
+            diagonal_square_2 = math.sqrt((self.side2**2) * 2)
 
-        return diagonal_rect == diagonal_square_1 == diagonal_square_2
+            return diagonal_rect == diagonal_square_1 == diagonal_square_2
 
     def __lt__(self, other: Rectangle) -> bool:
-        return self.perimeter < other.perimeter
+        if self.validate_rectangle and other.validate_rectangle:
+            return self.perimeter < other.perimeter
 
     def __gt__(self, other: Rectangle) -> bool:
-        return self.perimeter > other.perimeter
+        if self.validate_rectangle and other.validate_rectangle:
+            return self.perimeter > other.perimeter
 
     def __le__(self, other: Rectangle) -> bool:
-        return self.perimeter <= other.perimeter
+        if self.validate_rectangle and other.validate_rectangle:
+            return self.perimeter <= other.perimeter
 
     def __ge__(self, other: Rectangle) -> bool:
-        return self.perimeter >= other.perimeter
+        if self.validate_rectangle and other.validate_rectangle:
+            return self.perimeter >= other.perimeter
 
     def __repr__(self) -> str:
         return f"Rectangle(Area={self.area}, Perimeter={self.perimeter})"
@@ -75,24 +86,24 @@ class Rectangle(Shape):
 
     def __eq__(self, other: Rectangle) -> bool:
         # For two rectangles to be similar, their sides have to be proportional (form equal ratios).
-        rect_ratio = self.side1 / self.side2
-        test_ratio = other.side1 / other.side2
-        return rect_ratio == test_ratio
-    
+        if self.validate_rectangle and other.validate_rectangle:
+            rect_ratio = self.side1 / self.side2
+            test_ratio = other.side1 / other.side2
+            return rect_ratio == test_ratio
+        
 
     def plot(self):
-        if self.is_shape_circle():
-            plt.rcParams["figure.figsize"] = [8, 8]
-            plt.rcParams["figure.autolayout"] = True
-            fig = plt.figure()
-            ax = fig.add_subplot()
-            rect = patches.Rectangle((self.x, self.y), self.side1,self.side2, color="green", fill=True)
-            ax.add_patch(rect)
-            ax.axis("equal")
-            return ax
-        #return plt.show()
+        plt.rcParams["figure.figsize"] = [8, 8]
+        plt.rcParams["figure.autolayout"] = True
+        fig = plt.figure()
+        ax = fig.add_subplot()
+        rect = patches.Rectangle((self.x, self.y), self.side1,self.side2, color="green", fill=False)
+        ax.add_patch(rect)
+        ax.axis("equal")
+
+        return plt.show()
  
 
 rect1 = Rectangle( 1, 2, 2, 1)
-
+rect1.plot()
 # print(rect1.is_square())
