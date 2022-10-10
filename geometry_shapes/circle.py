@@ -25,30 +25,30 @@ class Circle(Shape):
         self._radius = value
 
     @property
-    def circle_area(self):
+    def volume(self):
         return pi * self.radius**2
 
     @property
-    def circle_circumference(self):
+    def circumference(self):
         return 2 * pi * self.radius
 
     def is_unit_circle(self):
         return self.radius == 1
 
     def __eq__(self, other: Circle) -> bool:
-        return self.circle_circumference == other.circle_circumference
+        return self.circumference == other.circumference
 
     def __lt__(self, other: Circle) -> bool:
-        return self.circle_circumference < other.circle_circumference
+        return self.circumference < other.circumference
 
     def __gt__(self, other: Circle) -> bool:
-        return self.circle_circumference > other.circle_circumference
+        return self.circumference > other.circumference
 
     def __le__(self, other: Circle) -> bool:
-        return self.circle_circumference <= other.circle_circumference
+        return self.circumference <= other.circumference
 
     def __ge__(self, other: Circle) -> bool:
-        return self.circle_circumference >= other.circle_circumference
+        return self.circumference >= other.circumference
 
     def translate_circle(self, value: tuple):
         for i in range(len(value)):
@@ -62,25 +62,30 @@ class Circle(Shape):
         circle = Circle(translated[0], translated[1], self.radius)
         return circle
 
-    def plot_circle(self):
+    def plot(self):
         if self.is_shape_circle():
             plt.rcParams["figure.figsize"] = [7.00, 3.50]
             plt.rcParams["figure.autolayout"] = True
-            fig = plt.figure()
-            ax = fig.add_subplot()
+            fig, ax = plt.subplots()
             circle1 = patches.Circle(
-                (self.x, self.y), radius=0.5, color="green", fill=False
+                (self.x, self.y), radius=0.5, color="red", fill=False
             )
             ax.add_patch(circle1)
+            # ax.plot(circle1)
+            ax.set_title("Cicle")
             ax.axis("equal")
 
-        return plt.show()
+            print(f"this is the ax: {type(ax)}")
+
+            return ax
 
     def __repr__(self) -> str:
-        return f""
+        return f"Circle(Volume={self.volume}, circumference={self.circumference})"
 
     def __str__(self) -> str:
-        return f"hey"
+        if self.translate_circle:
+            return f"{self.__class__.__name__} = ({self.x}, {self.y}, {self.radius})"
+        return f"Circle with area: {self.area}, circumference: {self.circumference}"
 
 
 circle1 = Circle(x=1, y=2, radius=2)
@@ -96,8 +101,5 @@ co = (2, 2)
 # except ValueError as err:
 #     print(err)
 
-print(Circle.__name__)
-
-print(Circle.__class__)
 
 # print(circle2.is_unit_circle())

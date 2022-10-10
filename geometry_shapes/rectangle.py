@@ -68,10 +68,10 @@ class Rectangle(Shape):
         return self.perimeter >= other.perimeter
 
     def __repr__(self) -> str:
-        return f""
+        return f"Rectangle(Area={self.area}, Perimeter={self.perimeter})"
 
     def __str__(self) -> str:
-        return super().__str__()
+        return f"Rectangle with an area of {self.area} and a perimeter of {self.perimeter}"
 
     def __eq__(self, other: Rectangle) -> bool:
         # For two rectangles to be similar, their sides have to be proportional (form equal ratios).
@@ -80,7 +80,7 @@ class Rectangle(Shape):
         return rect_ratio == test_ratio
     
 
-    def plot_rectangle(self):
+    def plot(self):
         if self.is_shape_circle():
             plt.rcParams["figure.figsize"] = [8, 8]
             plt.rcParams["figure.autolayout"] = True
@@ -89,9 +89,10 @@ class Rectangle(Shape):
             rect = patches.Rectangle((self.x, self.y), self.side1,self.side2, color="green", fill=True)
             ax.add_patch(rect)
             ax.axis("equal")
-            return plt.show()
+            return ax
+        #return plt.show()
  
 
 rect1 = Rectangle( 1, 2, 2, 1)
-#rect1.plot_rectangle()
+
 # print(rect1.is_square())

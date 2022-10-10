@@ -54,7 +54,8 @@ class Shape:
     def __repr__(self) -> str:
         return f"Shape with midpoint {self.midPoint}"
 
-
+    def __str__(self) -> str:
+        pass
 
 # s.plot()
 # print(s.is_point_in_shape(1.2,1.2))
