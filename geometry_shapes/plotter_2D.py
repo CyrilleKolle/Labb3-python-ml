@@ -1,25 +1,20 @@
-from curses.textpad import rectangle
-from turtle import circle
 from circle import Circle
 from rectangle import Rectangle
-import matplotlib.pyplot as plt
+from matplotlib import pyplot as plt
 
 
-class Plotter_2D:
+rect1 = Rectangle(0.5,0.2,0.5,0.3)
+cir = Circle(0.5,0.5,100)
+ax = plt.axes()
 
-
-    def plotting(self):
-        circle1 = Circle(1,2,1)
-        rectangle1 = Rectangle(1,1, 2,3)
-        fig = plt.figure(2)
-        axes = []
-        for item in (circle1, rectangle1):
-            axes.append(item.plot())
-        fig.axes.append(axes)
-
-        plt.show()
+for func in (rect1, cir):
+    func.plot(ax)
+ax.autoscale()
+ax.set_aspect(1)
+plt.show()
 
 
 
-plotter1 = Plotter_2D()
-plotter1.plotting()
+
+
+

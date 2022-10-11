@@ -1,6 +1,5 @@
 from __future__ import annotations
 from math import pi
-from typing import Type
 from shape import Shape
 from matplotlib import pyplot as plt, patches
 
@@ -35,22 +34,8 @@ class Circle(Shape):
     def is_unit_circle(self):
         return self.radius == 1
 
-    def __eq__(self, other: Circle) -> bool:
-        return self.circumference == other.circumference
-
-    def __lt__(self, other: Circle) -> bool:
-        return self.circumference < other.circumference
-
-    def __gt__(self, other: Circle) -> bool:
-        return self.circumference > other.circumference
-
-    def __le__(self, other: Circle) -> bool:
-        return self.circumference <= other.circumference
-
-    def __ge__(self, other: Circle) -> bool:
-        return self.circumference >= other.circumference
-
-    def translate_circle(self, value: tuple):
+    def translate_circle(self, a,b):
+        value = [a,b]
         for i in range(len(value)):
             if not isinstance(value[i], (float, int)):
                 raise TypeError(
@@ -62,25 +47,16 @@ class Circle(Shape):
         circle = Circle(translated[0], translated[1], self.radius)
         return circle
 
-    def plot(self):
-        if self.is_shape_circle():
-            plt.rcParams["figure.figsize"] = [7.00, 3.50]
-            plt.rcParams["figure.autolayout"] = True
-            fig, ax = plt.subplots()
-            circle1 = patches.Circle(
-                (self.x, self.y), radius=0.5, color="red", fill=False
-            )
-            ax.add_patch(circle1)
-            # ax.plot(circle1)
-            ax.set_title("Cicle")
-            ax.axis("equal")
+    def plot(self, ax):
 
-            print(f"this is the ax: {type(ax)}")
+        circle1 = patches.Circle((self.x, self.y), self.radius, color="red", fill=False)
+        ax.add_patch(circle1)
+        
 
-        return plt.show()
+
 
     def __repr__(self) -> str:
-        return f"Circle(Volume={self.area}, circumference={self.circumference})"
+        return f"Circle(Area={self.area}, circumference={self.circumference})"
 
     def __str__(self) -> str:
         if self.translate_circle:
@@ -88,18 +64,3 @@ class Circle(Shape):
         return f"Circle with area: {self.area}, circumference: {self.circumference}"
 
 
-circle1 = Circle(x=1, y=2, radius=2)
-circle2 = Circle(4, 2, 2)
-co = (2, 2)
-
-# try:
-#     # circle3 = circle1.translate_circle(co)
-#     # print(f"circle 3 ={circle3}")
-#     #circle1.plot_circle()
-#     c3 = circle1.translate_circle(co)
-
-# except ValueError as err:
-#     print(err)
-
-
-# print(circle2.is_unit_circle())

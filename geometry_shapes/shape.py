@@ -1,4 +1,5 @@
 from __future__ import annotations
+from unicodedata import name
 import numpy as np
 
 
@@ -35,7 +36,7 @@ class Shape:
 
         return (x, y)
 
-    def is_point_in_shape(self, *other: tuple) -> float:
+    def is_inside(self, *other: tuple) -> float:
         mid_point = self.midPoint
         # calculate euclidean distance between midpoint and test point
         distance_to_mid_point = (
@@ -47,16 +48,37 @@ class Shape:
             return True
         else:
             return False
-    def is_shape_circle(self) -> bool:
-        return True
+    
+
+    def __eq__(self, other) -> bool:
+        return self.area == other.area and self.circumference == self.circumference
+
+    def __lt__(self, other) -> bool:
+        return self.area < other.area 
+
+    def __gt__(self, other) -> bool:
+        return self.area > other.area 
+
+    def __le__(self, other) -> bool:
+        return self.area <= other.area
+
+    def __ge__(self, other) -> bool:
+        return self.area >= other.area
 
 
     def __repr__(self) -> str:
-        return f"Shape with midpoint {self.midPoint}"
+        return f"Shape(x={self.x}, y={self.y})"
 
     def __str__(self) -> str:
-        pass
+        return f"Shape with midpoint {self.midPoint}"
 
-# s.plot()
-# print(s.is_point_in_shape(1.2,1.2))
-print(type(Shape))
+    def is_(self) -> str:
+        if self.__class__.__name__ == "Rectangle":
+            print("Rectangle")
+        elif self.__class__.name__ == "Circle":
+            print("Circle")
+        elif self.__class__.__name__ == "Cube":
+            print("Cube")
+        elif self.__class__.__name__ == "Sphere":
+            print("Sphere")
+

@@ -14,6 +14,9 @@ class Rectangle(Shape):
         self.side2 = side2
         super().__init__(x, y)
 
+        # if self.side1 or self.side2 == None:
+        #     raise ValueError(f"Rectangle must have a side1 and side 2")
+
     @property
     def side1(self) -> int | float:
         return self._side1
@@ -38,7 +41,6 @@ class Rectangle(Shape):
             )
         self._side2 = value
 
-    # perimeter is P=2l+2w and area is A=lw where l is the length and w is the width.
     def validate_rectangle(self):
         if self.side1 == self.side2:
             raise ValueError("Rectangles sides must differ")
@@ -49,7 +51,7 @@ class Rectangle(Shape):
             return self.side1 * self.side2
 
     @property
-    def perimeter(self):
+    def circumference(self):
         if self.validate_rectangle:
             perimetr = (self.side1 * 2) + (self.side2 * 2)
             return perimetr
@@ -62,48 +64,19 @@ class Rectangle(Shape):
 
             return diagonal_rect == diagonal_square_1 == diagonal_square_2
 
-    def __lt__(self, other: Rectangle) -> bool:
-        if self.validate_rectangle and other.validate_rectangle:
-            return self.perimeter < other.perimeter
-
-    def __gt__(self, other: Rectangle) -> bool:
-        if self.validate_rectangle and other.validate_rectangle:
-            return self.perimeter > other.perimeter
-
-    def __le__(self, other: Rectangle) -> bool:
-        if self.validate_rectangle and other.validate_rectangle:
-            return self.perimeter <= other.perimeter
-
-    def __ge__(self, other: Rectangle) -> bool:
-        if self.validate_rectangle and other.validate_rectangle:
-            return self.perimeter >= other.perimeter
-
     def __repr__(self) -> str:
-        return f"Rectangle(Area={self.area}, Perimeter={self.perimeter})"
+        return f"Rectangle(Area={self.area}, Circumference={self.circumference})"
 
     def __str__(self) -> str:
-        return f"Rectangle with an area of {self.area} and a perimeter of {self.perimeter}"
+        return f"Rectangle with an area of {self.area} and a circumference of {self.circumference}"
 
-    def __eq__(self, other: Rectangle) -> bool:
-        # For two rectangles to be similar, their sides have to be proportional (form equal ratios).
-        if self.validate_rectangle and other.validate_rectangle:
-            rect_ratio = self.side1 / self.side2
-            test_ratio = other.side1 / other.side2
-            return rect_ratio == test_ratio
+    def plot(self,ax):
+
+        rect = patches.Rectangle(
+            (self.x, self.y), self.side1, self.side2, color="green", fill=False
+        )
+        ax.add_patch(rect)
         
 
-    def plot(self):
-        plt.rcParams["figure.figsize"] = [8, 8]
-        plt.rcParams["figure.autolayout"] = True
-        fig = plt.figure()
-        ax = fig.add_subplot()
-        rect = patches.Rectangle((self.x, self.y), self.side1,self.side2, color="green", fill=False)
-        ax.add_patch(rect)
-        ax.axis("equal")
 
-        return plt.show()
- 
 
-rect1 = Rectangle( 1, 2, 2, 1)
-rect1.plot()
-# print(rect1.is_square())
