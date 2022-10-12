@@ -3,8 +3,9 @@ from rectangle import Rectangle
 from matplotlib import pyplot as plt
 
 
-rect1 = Rectangle(0.5,0.2,0.5,0.3)
-cir = Circle(0.5,0.5,100)
+rect1 = Rectangle(2,2,3,5)
+cir = Circle(0.5,0.5,10)
+cir.translate(2,2)
 ax = plt.axes()
 
 for func in (rect1, cir):
