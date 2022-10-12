@@ -1,7 +1,7 @@
 from __future__ import annotations
 from math import pi
 from shape import Shape
-from matplotlib import pyplot as plt, patches
+from matplotlib import pyplot as patches
 
 
 class Circle(Shape):
@@ -14,7 +14,10 @@ class Circle(Shape):
     """
 
     def __init__(self, x: float | int, y: float | int, radius: float | int) -> None:
+
         """
+        __init__ function is called everytime an instance of the class is created. It  lets the class initialize the object's attributes.
+
         Parameters
         ----------
         radius: represents the distance from the center of the Circle to the circumference or the bounding surface of the Circle
@@ -40,7 +43,7 @@ class Circle(Shape):
 
     @property
     def area(self):
-        """A getter to retrieve the area of the Circle. It is a property without a getter so that its value cant be change"""
+        """A getter to retrieve the area of the Circle. It is a property without a getter function so that its value cant be change"""
         return pi * self.radius**2
 
     @property
@@ -64,10 +67,10 @@ class Circle(Shape):
 
     def __repr__(self) -> str:
         """__repr__ overrides the parent Shape classe's __repr__ to return the object representation in a string of a Circle"""
+
         return f"Circle(Area={self.area}, circumference={self.circumference})"
 
     def __str__(self) -> str:
         """__str__ overrides the parent's __str__ to return a string representation of Circle"""
-        if self.translate:
-            return f"Translated {self.__class__.__name__} = ({self.x}, {self.y}, {self.radius})"
-        return f"Circle with area: {self.area}, circumference: {self.circumference}"
+
+        return f"Circle with points x = {self.x}, y = {self.y}, radius = {self.radius}, an area = {self.area} and a circumference = {self.circumference}"

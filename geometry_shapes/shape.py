@@ -1,6 +1,4 @@
 from __future__ import annotations
-from unicodedata import name
-import numpy as np
 from abc import abstractmethod
 
 
@@ -85,6 +83,8 @@ class Shape:
 
     def __eq__(self, other: Shape) -> bool:
         """__dunder__ function to check if two shapes are equal"""
+        #TODO
+        #Alternatively
         # if self.__class__.__name__ != other.__class__.__name__:
         #     raise TypeError("Must be of thesame type")
         return (self.area == other.area) and (self.circumference == other.circumference)
@@ -107,8 +107,8 @@ class Shape:
 
     def __repr__(self) -> str:
         """__repr__ returns the object representation in a string form of a shape"""
-        return f"Shape(x={self.x}, y={self.y})"
+        return f"Shape(x = {self.x}, y = {self.y})"
 
     def __str__(self) -> str:
         """__str__ returns the string represention of a shape"""
-        return f"Shape with midpoint {self.midPoint}"
+        return f"Shape with points x = {self.x}, y = {self.y}"

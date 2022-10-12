@@ -1,6 +1,6 @@
 from __future__ import annotations
 import math
-from matplotlib import pyplot as plt, patches
+from matplotlib import pyplot as patches
 from shape import Shape
 
 
@@ -76,8 +76,12 @@ class Rectangle(Shape):
 
     def is_inside(self, a, b) -> bool:
         """A function to check if point is inside a rectangle"""
-        check = (a - self.side1) ** 2 + (b - self.side2) ** 2 < (self.side2 / 2) ** 2
-        return check
+        x_bottom = self.x - (self.side2 / 2)
+        y_bottom = self.y - (self.side1 / 2)
+        x_top = self.x + (self.side2 / 2)
+        y_top = self.y + (self.side1 / 2)
+
+        return (x_bottom <= a <= x_top) and (y_bottom <= b <= y_top)
 
     @property
     def circumference(self):
@@ -102,8 +106,9 @@ class Rectangle(Shape):
         return f"Rectangle(Area={self.area}, Circumference={self.circumference})"
 
     def __str__(self) -> str:
-        """__str__ overrides the parent's __str__ to return a string representation of a Rectangle"""
-        return f"Rectangle with an area of {self.area} and a circumference of {self.circumference}"
+        """__str__ overrides the Rectangle parent's __str__ to return a string representation of a Rectangle"""
+
+        return f"Rectangle with points x = {self.x}, y = {self.y}, an area of {self.area} and a circumference of {self.circumference}"
 
     def plot(self, ax):
         """A plot function to plot an intance of a Rectangle created"""
